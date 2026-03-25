@@ -39,17 +39,7 @@ class _AuthCheckState extends State<AuthCheck> {
     }
   }
 
-  Future<void> logout(BuildContext context) async {
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.remove("token");
-
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
-      (route) => false,
-    );
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
