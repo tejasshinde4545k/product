@@ -39,7 +39,6 @@ class _ProductScreenState extends State<ProductScreen> {
       appBar: AppBar(
         title: const Text("Products"),
 
-        // ✅ logout button added here
         actions: [
           IconButton(
             onPressed: () => logout(context),

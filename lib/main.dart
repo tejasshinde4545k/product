@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo/Authchecker/auth.dart';
-import 'package:todo/Authchecker/auth_checker.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/viewmodels/auth_viewmodel.dart';
+import 'package:todo/viewmodels/product_viewmodel.dart';
+import 'package:todo/views/auth_check_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AuthCheck(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => ProductViewModel()),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: AuthCheckView(),
+      ),
     );
   }
 }

@@ -4,15 +4,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/product_model.dart';
 
 class ProductService {
+  static const String _baseUrl = "http://gminnovex.com:3000/api/v1";
+
   static Future<List<Product>> getProducts() async {
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
 
-    var url = Uri.parse(
-      "http://gminnovex.com:3000/api/v1/Product?page_no=3&limit=20",
-    );
+    final url = Uri.parse("$_baseUrl/Product?page_no=3&limit=20");
 
-    var response = await http.get(
+    final response = await http.get(
       url,
       headers: {
         "Content-Type": "application/json",
@@ -20,14 +20,13 @@ class ProductService {
       },
     );
 
-    var data = jsonDecode(response.body);
+    final data = jsonDecode(response.body);
 
     if (data["status"] == true) {
-      List list = data["data"];
-
+      final List list = data["data"];
       return list.map((e) => Product.fromJson(e)).toList();
     } else {
-      throw Exception("Failed");
+      throw Exception("Failed to load products");
     }
   }
 }
